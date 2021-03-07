@@ -12,7 +12,6 @@ describe 'OpenWeather One Call API based requests' do
         expect(json_data).to have_key(:current)
         expect(json_data[:current]).to be_a(Hash)
 
-        # current_weather data
         current_data = json_data[:current]
 
         expect(current_data).to have_key(:dt)
@@ -61,6 +60,7 @@ describe 'OpenWeather One Call API based requests' do
         hourly_data = json_data[:hourly]
         
         expect(hourly_data).to be_an(Array)
+        hourly_data.count.should be >= 8
 
         first_hourly_data = hourly_data.first
 
@@ -84,7 +84,7 @@ describe 'OpenWeather One Call API based requests' do
         expect(hourly_weather_data[:icon]).to be_a(String)
       end
     end
-    it 'can return daily weather data and next 5 days of data based on lat/long' do
+    it 'can return daily weather data and at least next 5 days of data based on lat/long' do
       VCR.use_cassette('san_fran_forecast') do
         sf_lat_param = '37.78008'
         sf_long_param = '-122.420168'
@@ -94,6 +94,7 @@ describe 'OpenWeather One Call API based requests' do
         daily_data = json_data[:daily]
         
         expect(daily_data).to be_an(Array)
+        daily_data.count.should be >= 5
 
         first_daily_data = daily_data.first
 
