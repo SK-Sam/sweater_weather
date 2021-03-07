@@ -49,9 +49,6 @@ describe 'OpenWeather One Call API based requests' do
 
         expect(current_weather_data).to have_key(:icon)
         expect(current_weather_data[:icon]).to be_a(String)
-
-        # daily_weather data, next 5 days
-        
       end
     end
     it 'can return hourly weather data and next 8 hrs of data based on lat/long' do
