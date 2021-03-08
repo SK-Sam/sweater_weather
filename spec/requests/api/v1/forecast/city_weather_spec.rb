@@ -46,6 +46,12 @@ describe 'city_weather' do
           expect(current_weather).to have_key(:conditions)
           expect(current_weather).to have_key(:icon)
 
+          expect(current_weather).not_to have_key(:pressure)
+          expect(current_weather).not_to have_key(:dew_point)
+          expect(current_weather).not_to have_key(:clouds)
+          expect(current_weather).not_to have_key(:wind_speed)
+          expect(current_weather).not_to have_key(:wind_deg)
+
           expect(daily_weather).to have_key(:date)
           expect(daily_weather).to have_key(:sunrise)
           expect(daily_weather).to have_key(:sunset)
@@ -54,10 +60,22 @@ describe 'city_weather' do
           expect(daily_weather).to have_key(:conditions)
           expect(daily_weather).to have_key(:icon)
 
+          expect(daily_weather).not_to have_key(:pressure)
+          expect(daily_weather).not_to have_key(:dew_point)
+          expect(daily_weather).not_to have_key(:clouds)
+          expect(daily_weather).not_to have_key(:wind_speed)
+          expect(daily_weather).not_to have_key(:wind_deg)
+
           expect(hourly_weather).to have_key(:time)
           expect(hourly_weather).to have_key(:temperature)
           expect(hourly_weather).to have_key(:conditions)
           expect(hourly_weather).to have_key(:icon)
+
+          expect(hourly_weather).not_to have_key(:pressure)
+          expect(hourly_weather).not_to have_key(:dew_point)
+          expect(hourly_weather).not_to have_key(:clouds)
+          expect(hourly_weather).not_to have_key(:wind_speed)
+          expect(hourly_weather).not_to have_key(:wind_deg)
         end
       end
     end
