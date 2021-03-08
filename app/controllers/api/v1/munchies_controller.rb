@@ -10,8 +10,8 @@ class Api::V1::MunchiesController < ApplicationController
     map_data = JSON.parse(map_response.body, symbolize_names: true)
     travel_time_with_traffic = map_data[:route][:realTime]
 
-    destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
-    #travel_time = "#{travel_time_with_traffic % 3600} hours #{} min"
+    destination_city = map_data[:route][:locations].last[:adminArea5] +
+    ', ' + map_data[:route][:locations].last[:adminArea3]
     travel_time = map_data[:route][:formattedTime].first(2) + ' hours ' + map_data[:route][:formattedTime][3..4] + ' min'
     lat = map_data[:route][:locations].last[:displayLatLng][:lat]
     lng = map_data[:route][:locations].last[:displayLatLng][:lng]
@@ -21,13 +21,13 @@ class Api::V1::MunchiesController < ApplicationController
     weather_data = Forecast.new(LocationWeatherService.get_weather_data(lat, lng))
     forecast = {
       summary: weather_data.current_weather[:conditions],
-      temperature: weather_data.current_weather[:temperature]
+      temperature: weather_data.current_weather[:temperature].round(1)
     }
 
     #Yelp portion
     yelp_response = Faraday.get("https://api.yelp.com/v3/businesses/search") do |req|
       req.headers['Content-Type'] = 'application/json'
-      req.headers['Authorization'] = "Bearer #{yelp_api_key}"
+      req.headers['Authorization'] = "Bearer #{ENV['yelp_api_key']}"
       req.params['latitude'] = lat
       req.params['longitude'] = lng
       req.params['categories'] = params[:food]
@@ -37,7 +37,7 @@ class Api::V1::MunchiesController < ApplicationController
     restaurant = {
       name: yelp_data[:businesses].first[:name],
       address: yelp_data[:businesses].first[:location][:address1] + ' ' +
-        yelp_data[:businesses].first[:location][:address2] + ' ' +
+        yelp_data[:businesses].first[:location][:address2] + ', ' +
         yelp_data[:businesses].first[:location][:city] + ' ' +
         yelp_data[:businesses].first[:location][:state] + ' ' +
         yelp_data[:businesses].first[:location][:zip_code]
