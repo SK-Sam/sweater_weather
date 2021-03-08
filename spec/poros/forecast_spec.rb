@@ -7,7 +7,6 @@ describe 'Forecast Poro' do
     current_datas = data[:current]
     daily_datas = data[:daily].first(5)
     hourly_datas = data[:hourly]
-    require 'pry'; binding.pry
     forecast_poro = Forecast.new(data)
 
     current_weather_expectation = {
@@ -24,20 +23,20 @@ describe 'Forecast Poro' do
     }
 
     daily_weather_expectation = {
-      date: Time.at(daily_datas[:dt]).strftime("%F"),
-      sunrise: Time.at(daily_datas[:sunrise]),
-      sunset: Time.at(daily_datas[:sunset]),
-      max_temp: ((daily_datas[:temp][:max] - 273.15) * 9 / 5) + 32,
-      mmin_temp: ((daily_datas[:temp][:min] - 273.15) * 9 / 5) + 32,
-      conditions: daily_datas[:weather].first[:description],
-      icon: daily_datas[:weather].first[:icon]
+      date: Time.at(daily_datas.first[:dt]).strftime("%F"),
+      sunrise: Time.at(daily_datas.first[:sunrise]),
+      sunset: Time.at(daily_datas.first[:sunset]),
+      max_temp: ((daily_datas.first[:temp][:max] - 273.15) * 9 / 5) + 32,
+      min_temp: ((daily_datas.first[:temp][:min] - 273.15) * 9 / 5) + 32,
+      conditions: daily_datas.first[:weather].first[:description],
+      icon: daily_datas.first[:weather].first[:icon]
     }
 
     hourly_weather_expectation = {
-      time: Time.at(hourly_datas[:dt]).strftime("%T"),
-      temperature: ((hourly_datas[:temp] - 273.15) * 9 / 5) + 32,
-      conditions: hourly_datas[:weather].first[:description],
-      icon: hourly_datas[:weather].first[:icon]
+      time: Time.at(hourly_datas.first[:dt]).strftime("%T"),
+      temperature: ((hourly_datas.first[:temp] - 273.15) * 9 / 5) + 32,
+      conditions: hourly_datas.first[:weather].first[:description],
+      icon: hourly_datas.first[:weather].first[:icon]
     }
 
     expect(forecast_poro.current_weather).to eq(current_weather_expectation)
