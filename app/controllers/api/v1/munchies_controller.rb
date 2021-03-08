@@ -9,7 +9,9 @@ class Api::V1::MunchiesController < ApplicationController
     end
     map_data = JSON.parse(map_response.body, symbolize_names: true)
     destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
-    travel_time = map_data[:route][:realTime]
+    travel_time_with_traffic = map_data[:route][:realTime]
+    #travel_time = "#{travel_time_with_traffic % 3600} hours #{} min"
+    travel_time = map_data[:route][:formattedTime].first(2) + ' hours ' + map_data[:route][:formattedTime][3..4] + ' min'
     lat = map_data[:route][:locations].last[:displayLatLng][:lat]
     lng = map_data[:route][:locations].last[:displayLatLng][:lng]
 
@@ -27,6 +29,7 @@ class Api::V1::MunchiesController < ApplicationController
       req.params['latitude'] = lat
       req.params['longitude'] = lng
       req.params['categories'] = params[:food]
+      req.params['open_at'] = Time.now.to_i + travel_time_with_traffic
     end
 
   end
