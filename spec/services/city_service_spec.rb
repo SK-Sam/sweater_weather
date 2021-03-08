@@ -34,10 +34,10 @@ describe 'MapQuest Geocode API based requests' do
     end
     it '#get_directions_data' do
       VCR.use_cassette('get_map_data') do
-        direction_data = MunchieService.get_directions_data
+        direction_data = CityService.get_directions_data('denver,co', 'pueblo,co')
   
         expect(direction_data).to be_a(Hash)
-        expect(direction_data[:route][:realtime]).to be_a(Numeric)
+        expect(direction_data[:route][:realTime]).to be_a(Numeric)
         expect(direction_data[:route][:locations]).to be_an(Array)
         expect(direction_data[:route][:locations].last).to have_key(:adminArea3)
         expect(direction_data[:route][:locations].last).to have_key(:adminArea5)
