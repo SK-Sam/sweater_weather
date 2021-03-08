@@ -8,8 +8,9 @@ class Api::V1::MunchiesController < ApplicationController
       req.params['to'] = params[:destination]
     end
     map_data = JSON.parse(map_response.body, symbolize_names: true)
-    destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
     travel_time_with_traffic = map_data[:route][:realTime]
+    
+    destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
     #travel_time = "#{travel_time_with_traffic % 3600} hours #{} min"
     travel_time = map_data[:route][:formattedTime].first(2) + ' hours ' + map_data[:route][:formattedTime][3..4] + ' min'
     lat = map_data[:route][:locations].last[:displayLatLng][:lat]
@@ -31,6 +32,15 @@ class Api::V1::MunchiesController < ApplicationController
       req.params['categories'] = params[:food]
       req.params['open_at'] = Time.now.to_i + travel_time_with_traffic
     end
+    yelp_data = JSON.parse(yelp_response.body, symbolize_names: true)
+    restaurant = {
+      name: yelp_data[:businesses].first[:name],
+      address: yelp_data[:businesses].first[:location][:address1] + ' ' +
+        yelp_data[:businesses].first[:location][:address2] + ' ' +
+        yelp_data[:businesses].first[:location][:city] + ' ' +
+        yelp_data[:businesses].first[:location][:state] + ' ' +
+        yelp_data[:businesses].first[:location][:zip_code]
+    }
 
   end
 end
