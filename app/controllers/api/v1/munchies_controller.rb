@@ -9,12 +9,13 @@ class Api::V1::MunchiesController < ApplicationController
     end
     map_data = JSON.parse(map_response.body, symbolize_names: true)
     travel_time_with_traffic = map_data[:route][:realTime]
-    
+
     destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
     #travel_time = "#{travel_time_with_traffic % 3600} hours #{} min"
     travel_time = map_data[:route][:formattedTime].first(2) + ' hours ' + map_data[:route][:formattedTime][3..4] + ' min'
     lat = map_data[:route][:locations].last[:displayLatLng][:lat]
     lng = map_data[:route][:locations].last[:displayLatLng][:lng]
+
 
     # Forecast portion
     weather_data = Forecast.new(LocationWeatherService.get_weather_data(lat, lng))
@@ -42,5 +43,13 @@ class Api::V1::MunchiesController < ApplicationController
         yelp_data[:businesses].first[:location][:zip_code]
     }
 
+    data_to_serialize = {
+      destination_city: destination_city,
+      travel_time: travel_time,
+      forecast: forecast,
+      restaurant: restaurant
+    }
+
+    render json: data_to_serialize
   end
 end
