@@ -10,9 +10,15 @@ class Api::V1::MunchiesController < ApplicationController
     map_data = JSON.parse(map_response.body, symbolize_names: true)
     destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
     travel_time = map_data[:route][:realTime]
-    lng = map_data[:route][:locations].last[:displayLatLng][:lng]
     lat = map_data[:route][:locations].last[:displayLatLng][:lat]
+    lng = map_data[:route][:locations].last[:displayLatLng][:lng]
 
     # Forecast portion
+    weather_data = Forecast.new(LocationWeatherService.get_weather_data(lat, lng))
+    forecast = {
+      summary: weather_data.current_weather[:conditions],
+      temperature: weather_data.current_weather[:temperature]
+    }
+
   end
 end
