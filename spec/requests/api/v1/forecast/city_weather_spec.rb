@@ -5,7 +5,7 @@ describe 'city_weather' do
     it 'can receive a get req and return JSON payload of current, daily, and hourly weather based on city' do
       VCR.use_cassette('san_fran_location') do
         VCR.use_cassette('san_fran_forecast') do
-          expected_payload = File.read('spec/fixtures/processed_san_fran_forecast.json')
+          expected_payload = JSON.parse(File.read('spec/fixtures/processed_san_fran_forecast.json'), symbolize_names: true)[:data][:attributes]
           get '/api/v1/forecast?location=san%20francisco,ca'
           
           expect(response.status).to eq(200)
@@ -51,6 +51,17 @@ describe 'city_weather' do
           expect(current_weather).not_to have_key(:clouds)
           expect(current_weather).not_to have_key(:wind_speed)
           expect(current_weather).not_to have_key(:wind_deg)
+
+          expect(current_weather[:datetime]).to eq(expected_payload[:current_weather][:datetime])
+          expect(current_weather[:sunrise]).to eq(expected_payload[:current_weather][:sunrise])
+          expect(current_weather[:sunset]).to eq(expected_payload[:current_weather][:sunset])
+          expect(current_weather[:temperature]).to eq(expected_payload[:current_weather][:temperature])
+          expect(current_weather[:feels_like]).to eq(expected_payload[:current_weather][:feels_like])
+          expect(current_weather[:humidity]).to eq(expected_payload[:current_weather][:humidity])
+          expect(current_weather[:uvi]).to eq(expected_payload[:current_weather][:uvi])
+          expect(current_weather[:visibility]).to eq(expected_payload[:current_weather][:visibility])
+          expect(current_weather[:conditions]).to eq(expected_payload[:current_weather][:conditions])
+          expect(current_weather[:icon]).to eq(expected_payload[:current_weather][:icon])
 
           expect(daily_weather).to have_key(:date)
           expect(daily_weather).to have_key(:sunrise)
