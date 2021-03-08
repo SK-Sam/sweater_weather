@@ -30,15 +30,26 @@ describe 'Recommend based on start/end address and food type' do
           expect(json_attributes).to have_key(:forecast)
           expect(json_attributes).to have_key(:restaurant)
 
+          expect(json_attributes[:destination_city]).to eq('Pueblo, CO')
+          expect(json_attributes[:travel_time]).to be_a(String)
+          expect(json_attributes[:forecast]).to be_a(Hash)
+
+
           json_forecast = json_attributes[:forecast]
 
           expect(json_forecast).to have_key(:summary)
           expect(json_forecast).to have_key(:temperature)
 
+          expect(json_forecast[:summary]).to be_a(String)
+          expect(json_forecast[:temperature]).to be_a(Numeric)
+
           json_restaurant = json_attributes[:restaurant]
 
           expect(json_restaurant).to have_key(:name)
           expect(json_restaurant).to have_key(:address)
+
+          expect(json_restaurant[:name]).to be_a(String)
+          expect(json_restaurant[:address]).to be_a(String)
         end
       end
     end
