@@ -8,7 +8,11 @@ class Api::V1::MunchiesController < ApplicationController
       req.params['to'] = params[:destination]
     end
     map_data = JSON.parse(map_response.body, symbolize_names: true)
-    destination_city = map_data[:route]
+    destination_city = map_data[:route][:locations].last[:adminArea5] + map_data[:route][:locations].last[:adminArea3]
+    travel_time = map_data[:route][:realTime]
+    lng = map_data[:route][:locations].last[:displayLatLng][:lng]
+    lat = map_data[:route][:locations].last[:displayLatLng][:lat]
 
+    # Forecast portion
   end
 end
