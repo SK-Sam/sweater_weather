@@ -18,12 +18,12 @@
           "daily_weather": [
               {
                   "date": "2021-03-07",
-                  "sunrise": "2021-03-07T06:23:38.000-07:00",
-                  "sunset": "2021-03-07T17:58:24.000-07:00",
-                  "max_temp": 65.3,
-                  "min_temp": 43.358000000000004,
-                  "conditions": "overcast clouds",
-                  "icon": "04d"
+                  "sunrise": "2021-03-07T07:32:16.000-07:00",
+                  "sunset": "2021-03-07T19:09:13.000-07:00",
+                  "max_temp": 54.77000000000006,
+                  "min_temp": 46.16600000000001,
+                  "conditions": "clear sky",
+                  "icon": "01d"
               },
               {
                   "date": "2021-03-08",
@@ -65,9 +65,9 @@
           "hourly_weather": [
               {
                   "time": "22:00:00",
-                  "temperature": 48.2,
-                  "conditions": "overcast clouds",
-                  "icon": "04n"
+                  "temperature": 47.75,
+                  "conditions": "few clouds",
+                  "icon": "02n"
               },
               {
                   "time": "23:00:00",
