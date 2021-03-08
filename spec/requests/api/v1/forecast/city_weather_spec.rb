@@ -77,6 +77,14 @@ describe 'city_weather' do
           expect(daily_weather).not_to have_key(:wind_speed)
           expect(daily_weather).not_to have_key(:wind_deg)
 
+          expect(daily_weather[:date]).to eq(expected_payload[:daily_weather].first[:date])
+          expect(daily_weather[:sunrise]).to eq(expected_payload[:daily_weather].first[:sunrise])
+          expect(daily_weather[:sunset]).to eq(expected_payload[:daily_weather].first[:sunset])
+          expect(daily_weather[:max_temp]).to eq(expected_payload[:daily_weather].first[:max_temp])
+          expect(daily_weather[:min_temp]).to eq(expected_payload[:daily_weather].first[:min_temp])
+          expect(daily_weather[:conditions]).to eq(expected_payload[:daily_weather].first[:conditions])
+          expect(daily_weather[:icon]).to eq(expected_payload[:daily_weather].first[:icon])
+
           expect(hourly_weather).to have_key(:time)
           expect(hourly_weather).to have_key(:temperature)
           expect(hourly_weather).to have_key(:conditions)
@@ -87,6 +95,11 @@ describe 'city_weather' do
           expect(hourly_weather).not_to have_key(:clouds)
           expect(hourly_weather).not_to have_key(:wind_speed)
           expect(hourly_weather).not_to have_key(:wind_deg)
+
+          expect(hourly_weather[:time]).to eq(expected_payload[:hourly_weather].first[:time])
+          expect(hourly_weather[:temperature]).to eq(expected_payload[:hourly_weather].first[:temperature])
+          expect(hourly_weather[:conditions]).to eq(expected_payload[:hourly_weather].first[:conditions])
+          expect(hourly_weather[:icon]).to eq(expected_payload[:hourly_weather].first[:icon])
         end
       end
     end
