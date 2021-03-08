@@ -20,5 +20,14 @@ class Api::V1::MunchiesController < ApplicationController
       temperature: weather_data.current_weather[:temperature]
     }
 
+    #Yelp portion
+    yelp_response = Faraday.get("https://api.yelp.com/v3/businesses/search") do |req|
+      req.headers['Content-Type'] = 'application/json'
+      req.headers['Authorization'] = "Bearer #{yelp_api_key}"
+      req.params['latitude'] = lat
+      req.params['longitude'] = lng
+      req.params['categories'] = params[:food]
+    end
+
   end
 end
