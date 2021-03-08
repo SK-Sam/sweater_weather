@@ -4,16 +4,16 @@
       "type": "forecast",
       "attributes": {
           "current_weather": {
-              "datetime": "2021-03-07T22:13:39.000-07:00",
-              "sunrise": "2021-03-07T06:23:38.000-07:00",
-              "sunset": "2021-03-07T17:58:24.000-07:00",
-              "temperature": 48.2,
-              "feels_like": 39.47000000000006,
-              "humidity": 23,
+              "datetime": "2021-03-07T22:26:11.000-07:00",
+              "sunrise": "2021-03-07T07:32:16.000-07:00",
+              "sunset": "2021-03-07T19:09:13.000-07:00",
+              "temperature": 47.75,
+              "feels_like": 39.50600000000003,
+              "humidity": 62,
               "uvi": 0,
               "visibility": 10000,
-              "conditions": "overcast clouds",
-              "icon": "04n"
+              "conditions": "few clouds",
+              "icon": "02n"
           },
           "daily_weather": [
               {
