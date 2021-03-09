@@ -16,6 +16,7 @@ describe 'Image Poro for background image' do
       expect(image_poro.credit[:source]).to be_a(String)
       expect(image_poro.credit[:author_username]).to be_a(String)
       expect(image_poro.credit[:author_name]).to be_a(String)
+      expect(image_poro.credit[:author_profile]).to be_a(String)
     end
   end
 end
