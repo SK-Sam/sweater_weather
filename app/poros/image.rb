@@ -9,7 +9,8 @@ class Image
     @credit = {
       source: 'https://unsplash.com',
       author_username: data[:results].first[:user][:username],
-      author_name: data[:results].first[:user][:name]
+      author_name: data[:results].first[:user][:name],
+      author_profile: data[:results].first[:user][:links][:html]
     }
   end
 end
