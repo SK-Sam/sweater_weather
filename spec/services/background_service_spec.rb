@@ -10,21 +10,21 @@ describe 'Unsplash Image API based requests' do
         expect(json_data).to have_key(:results)
         expect(json_data[:results]).to be_an(Array)
 
-        first_result = json_data.[:results].first
+        first_result = json_data[:results].first
 
         expect(first_result).to be_a(Hash)
         expect(first_result).to have_key(:urls)
         expect(first_result[:urls]).to have_key(:full)
         expect(first_result[:urls]).to have_key(:raw)
-        expect(first_results[:urls][:full]).to be_a(String)
-        expect(first_results[:urls][:raw]).to be_a(String)
-        expect(first_results).to have_key(:links)
-        expect(first_results[:links]).to have_key(:html)
-        expect(first_results).to have_key(:user)
-        expect(first_results[:user]).to have_key(:name)
-        expect(first_results[:user]).to have_key(:username)
-        expect(first_results[:user]).to have_key(:links)
-        expect(first_results[:user][:links]).to have_key(:html)
+        expect(first_result[:urls][:full]).to be_a(String)
+        expect(first_result[:urls][:raw]).to be_a(String)
+        expect(first_result).to have_key(:links)
+        expect(first_result[:links]).to have_key(:html)
+        expect(first_result).to have_key(:user)
+        expect(first_result[:user]).to have_key(:name)
+        expect(first_result[:user]).to have_key(:username)
+        expect(first_result[:user]).to have_key(:links)
+        expect(first_result[:user][:links]).to have_key(:html)
       end
     end
   end
