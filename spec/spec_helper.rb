@@ -12,6 +12,7 @@ SimpleCov.start 'rails' do
   add_filter('/app/channels/application_cable/connection.rb')
   add_filter('/app/jobs/application_job.rb')
   add_filter('/app/mailers/application_mailer.rb')
+  add_filter('/app/serializers/')
 end
 # Given that it is always loaded, you are encouraged to keep this file as
 # light-weight as possible. Requiring heavyweight dependencies from this file
