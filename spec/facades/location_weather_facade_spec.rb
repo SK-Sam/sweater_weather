@@ -12,4 +12,15 @@ describe 'LocationWeatherFacade' do
       expect(filtered_hourly_data[:temperature]).to be_a(Float)
     end
   end
+  it 'can filter forecast data daily' do
+    VCR.use_cassette('weather-service') do
+      lat = 37.7801
+      lon = -122.4202
+      day = 1
+      filtered_daily_data = LocationWeatherFacade.filter_forecast_data_hourly(lat, lon, day)
+
+      expect(filtered_daily_data[:conditions]).to be_a(String)
+      expect(filtered_daily_data[:temperature]).to be_a(Float)
+    end
+  end
 end
