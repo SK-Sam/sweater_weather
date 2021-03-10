@@ -6,9 +6,8 @@ class Api::V1::SessionsController < ApplicationController
       render json: UsersSerializer.new(user)
     else
       render json: {
-        status: 401,
         errors: 'Email or password combination did not work. Please try again.'
-      }
+      }, status: 401
     end
   end
 end
