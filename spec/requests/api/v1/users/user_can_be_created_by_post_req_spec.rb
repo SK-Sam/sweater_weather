@@ -24,3 +24,21 @@ describe 'User Create Request' do
     expect(json_body[:attributes][:api_key]).to eq(user.api_key)
   end
 end
+describe 'Invalid user creation' do
+  it 'can invalidate mismatching passwords' do
+    headers = {
+      'Content_Type': 'application/json'
+    }
+    body = {
+      'email': 'email@email.com',
+      'password': 'password',
+      'password_confirmation': 'password1'
+    }
+    post '/api/v1/users', headers: headers, params: body
+    expect(response.status).to eq(400)
+    
+    json_body = JSON.parse(response.body, symbolize_names: true)
+
+    expect(json_body[:errors]).to eq("Please try again. Issue with creating your account.")
+  end
+end
