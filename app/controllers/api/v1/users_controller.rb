@@ -5,7 +5,12 @@ class Api::V1::UsersController < ApplicationController
       password: params[:password],
       password_confirmation: params[:password_confirmation]
     )
-    render json: UsersSerializer.new(user), status: :created
+    if user
+      session[:user_id] = user.id
+      render json: UsersSerializer.new(user), status: :created
+    else
+      render json: { status: 400 }
+    end
   end
 
 end
