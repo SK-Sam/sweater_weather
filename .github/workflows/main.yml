@@ -30,21 +30,22 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1.66.0
         with:
           ruby-version: 2.6
-      - name: Setup env
-        env:
-          RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      - name: Install dependencies
         run:
+          sudo apt install -yqq libpq-dev
           gem install bundler
+          
+      - name: Install gems
+        run:
           bundle install
+          
       - name: DB create migrate
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
           RAILS_ENV: test
-          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run:
           bundle exec rails db:schema:load
           bundle exec rspec
