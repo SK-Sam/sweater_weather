@@ -12,7 +12,7 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     services:
-      postgres:
+      db:
         image: postgres
         env:
           POSTGRES_PASSWORD: postgres
@@ -46,7 +46,7 @@ jobs:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
           RAILS_ENV: test
         run:
-          bundle exec rails db:schema:load
+          bundle exec rails db:{create,migrate}
           bundle exec rspec
       
 
