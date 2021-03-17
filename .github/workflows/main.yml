@@ -40,7 +40,7 @@ jobs:
         run:
           sudo apt-get -yqq install libpq-dev
           gem install bundler
-          bundle install --jobs 4 --retry 3
+          bundle install
       - name: DB create migrate
         env:
           DATABASE_URL: postgres://postgres:@localhost:5432/test
