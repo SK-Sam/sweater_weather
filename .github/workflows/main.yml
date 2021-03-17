@@ -35,7 +35,6 @@ jobs:
           ruby-version: 2.6
       - name: Install dependencies
         run:
-          sudo apt install -yqq libpq-dev
           gem install bundler
           
       - name: Install gems
