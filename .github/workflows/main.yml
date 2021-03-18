@@ -61,11 +61,16 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
       
-      # - name: DB create migrate
-      #   env:
-      #     DATABASE_URL: postgres://postgres:@localhost:5432/test
-      #     RAILS_ENV: test
-      #   run:
-      #     bundle exec rails db:{create,migrate}
-      #     bundle exec rspec
-      
+  Deploy:
+    if: ${{ github.event_name == "push" && github.ref == "refs/heads/main" }}
+    needs: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy to Heroku
+        uses: akhileshns/heroku-deploy@v3.6.8
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "YOUR APP's NAME"
+          heroku_email: "yeosamuel95@gmail.com"
