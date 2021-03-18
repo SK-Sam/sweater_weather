@@ -8,7 +8,7 @@ on: [push, pull_request, workflow_dispatch]
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  Test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
     services:
@@ -60,9 +60,13 @@ jobs:
           RAILS_ENV: test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          weather_api_key: ${{ secrets.weather_api_key }}
+          map_api_key: ${{ secrets.map_api_key }}
+          yelp_api_key: ${{ secrets.yelp_api_key }}
+          picture_api_key: ${{ secrets.picture_api_key }}
       
   Deploy:
-    if: ${{ github.event_name == "push" && github.ref == "refs/heads/main" }}
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     needs: Test
     runs-on: ubuntu-latest
 
@@ -71,6 +75,5 @@ jobs:
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.6.8
         with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "YOUR APP's NAME"
-          heroku_email: "yeosamuel95@gmail.com"
+          heroku_app_name: 'sweater-weather-engine'
+          heroku_email: 'yeosamuel95@gmail.com'
