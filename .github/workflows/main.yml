@@ -75,5 +75,6 @@ jobs:
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.6.8
         with:
+          heroku_api_key: ${{ secrets.heroku_api_key }}
           heroku_app_name: 'sweater-weather-engine'
           heroku_email: 'yeosamuel95@gmail.com'
